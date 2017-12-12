@@ -14,7 +14,6 @@ setup(
     description=PROJECT,
     # url
     author=AUTHOR,
-    author_email=AUTHOR_EMAIL,
     # license
     classifiers=[
         'Development Status :: 3 - Alpha',
