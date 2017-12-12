@@ -9,7 +9,7 @@ About this module...
 
 Contents
 ********
-    * :func:`example_function()`: About this function...
+    * :func:`filename2metadata()`: Extracts metadata from a filename.
 """
 
 import logging
