@@ -1,6 +1,6 @@
 # Metadata Toolbox
 
-`metadata_toolbox` will be a Python library to manage corpora and their metadata, but is currently in development.
+`metadata_toolbox` is a Python library to manage corpora and their metadata, but is currently in development and not really ready to use.
 
 ## Installation
 `metadata_toolbox` is designed for **Python 3**.
