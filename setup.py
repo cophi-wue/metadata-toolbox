@@ -23,7 +23,9 @@ setup(
     ],
     # keywords
     packages=find_packages(exclude=['docs', 'test']),
-    install_requires=[],
+    install_requires=[
+        'parse>=1.8.2'
+    ],
     command_options={
         'build_sphinx': {
             'project': ('setup.py', PROJECT),
