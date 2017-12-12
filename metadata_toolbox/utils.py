@@ -13,9 +13,11 @@ Contents
 """
 
 import logging
+import os
 from parse import *
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s %(name)s: %(message)s')
+
