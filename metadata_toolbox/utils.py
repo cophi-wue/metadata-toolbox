@@ -32,8 +32,9 @@ def filename2metadata(filename, pattern='{author}_{title}'):
     Args:
         filename (str): The name of a text file, with or without path as prefix
             and extension as suffix, respectively.
-        pattern (str): The filename's pattern. Write describing tokens within
-            braces, those will be you dictionary's keys.
+        pattern (str), optional: The filename's pattern. Write describing tokens
+            within braces, those will be you dictionary's keys. Defaults to
+            ``{author}_{title}``.
     
     Returns:
         A ``Result`` object (instanced by :module:`parse`), meaning an ordered
