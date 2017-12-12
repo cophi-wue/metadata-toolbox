@@ -4,9 +4,9 @@
 from setuptools import setup, find_packages
 
 PROJECT = 'Toolbox to Manage Corpora & Their Metadata'
-VERSION = "0.1"
-REVISION = "0.1.0.dev0"
-AUTHOR = "Students of SE Software-Projekte, WS 2017/2018"
+VERSION = '0.1'
+REVISION = '0.1.0.dev0'
+AUTHOR = 'Students of SE Software-Projekte, WS 2017/2018'
 
 setup(
     name='metadata_toolbox',
