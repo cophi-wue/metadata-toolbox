@@ -11,3 +11,11 @@ Contents
 ********
     * :func:`example_function()`: About this function...
 """
+
+import logging
+
+
+log = logging.getLogger(__name__)
+log.addHandler(logging.NullHandler())
+logging.basicConfig(level=logging.INFO,
+                    format='%(levelname)s %(name)s: %(message)s')
