@@ -23,5 +23,28 @@ logging.basicConfig(level=logging.INFO,
 
 
 def filename2metadata(filename, pattern='{author}_{title}'):
+    """Extracts metadata from a filename.
+    
+    With this function you can create a dictionary containing metadata.
+    Only the filename's basepath without any extensions will be considered.
+    Furthermore, you have to specifiy the pattern of the filename.
+    
+    Args:
+        filename (str): The name of a text file, with or without path as prefix
+            and extension as suffix, respectively.
+        pattern (str): The filename's pattern. Write describing tokens within
+            braces, those will be you dictionary's keys.
+    
+    Returns:
+        A ``Result`` object (instanced by :module:`parse`), meaning an ordered
+        dictionary with describers as keys and metadata as values.
+        
+    Example:
+        >>> filename = 'corpus/Goethe_1816_Stella.txt'
+        >>> pattern = '{author}_{year}_{title}'
+        >>> filename2metadata(filename=filename,
+        ---                   pattern=pattern)
+        <Result () {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}>
+    """
     basename, _ = os.path.splitext(os.path.basename(filename))
     return parse(pattern, basename)
