@@ -21,3 +21,7 @@ log.addHandler(logging.NullHandler())
 logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s %(name)s: %(message)s')
 
+
+def filename2metadata(filename, pattern='{author}_{title}'):
+    basename, _ = os.path.splitext(os.path.basename(filename))
+    return parse(pattern, basename)
