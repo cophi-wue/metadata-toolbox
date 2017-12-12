@@ -13,7 +13,7 @@ Contents
 """
 
 import logging
-
+from parse import *
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
