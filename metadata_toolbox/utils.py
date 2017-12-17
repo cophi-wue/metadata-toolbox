@@ -10,6 +10,7 @@ About this module...
 Contents
 ********
     * :func:`filename2metadata()`: Extracts metadata from a filename.
+    * :func:`metadata2fname()`: Generates filename from metadata.
 """
 
 import logging
