@@ -6,7 +6,7 @@ import sys
 sys.path.append('..')
 from metadata_toolbox import utils
 
-FILENAME = 'refcor/English/dickens_expectations.txt'
+FNAME = 'refcor/English/dickens_expectations.txt'
 DATASET = {'author': 'dickens',
            'title': 'expectations',
            'foo': 'A',
@@ -17,7 +17,7 @@ class UtilsTestCase(unittest.TestCase):
         pass
         
     def test_fname2metadata(self):
-        metadata = utils.fname2metadata(FILENAME, '{author}_{title}')
+        metadata = utils.fname2metadata(FNAME, '{author}_{title}')
         self.assertTrue(metadata.__getitem__('author') == 'dickens' and
                         metadata.__getitem__('title') == 'expectations')
 
