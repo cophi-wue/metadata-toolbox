@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s %(name)s: %(message)s')
 
 
-def filename2metadata(filename, pattern='{author}_{title}'):
+def fname2metadata(filename, pattern='{author}_{title}'):
     """Extracts metadata from a filename.
     
     With this function you can create a dictionary containing metadata.
@@ -44,8 +44,8 @@ def filename2metadata(filename, pattern='{author}_{title}'):
     Example:
         >>> filename = 'corpus/Goethe_1816_Stella.txt'
         >>> pattern = '{author}_{year}_{title}'
-        >>> filename2metadata(filename=filename,
-        ...                   pattern=pattern)
+        >>> fname2metadata(filename=filename,
+        ...                pattern=pattern)
         <Result () {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}>
     """
     log.debug("Extracting metadata from file '{0}' with pattern '{1}' ...".format(filename, pattern)) 

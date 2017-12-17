@@ -16,8 +16,8 @@ class UtilsTestCase(unittest.TestCase):
     def setUp(self):
         pass
         
-    def test_filename2metadata(self):
-        metadata = utils.filename2metadata(FILENAME, '{author}_{title}')
+    def test_fname2metadata(self):
+        metadata = utils.fname2metadata(FILENAME, '{author}_{title}')
         self.assertTrue(metadata.__getitem__('author') == 'dickens' and
                         metadata.__getitem__('title') == 'expectations')
 
