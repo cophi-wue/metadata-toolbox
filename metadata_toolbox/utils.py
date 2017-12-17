@@ -48,7 +48,7 @@ def fname2metadata(filename, pattern='{author}_{title}'):
         ...                pattern=pattern)
         <Result () {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}>
     """
-    log.debug("Extracting metadata from file '{0}' with pattern '{1}' ...".format(filename, pattern)) 
+    log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(filename, pattern)) 
     basename, _ = os.path.splitext(os.path.basename(filename))
     return parse(pattern, basename)
 
