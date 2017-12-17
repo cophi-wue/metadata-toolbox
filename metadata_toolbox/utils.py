@@ -50,3 +50,16 @@ def filename2metadata(filename, pattern='{author}_{title}'):
     log.debug("Extracting metadata from file '{0}' with pattern '{1}' ...".format(filename, pattern)) 
     basename, _ = os.path.splitext(os.path.basename(filename))
     return parse(pattern, basename)
+
+def metadata2fname(dataset, pattern='{author}_{title}'):
+    """Construct a filename from a metadata set and a pattern.
+    
+    Args:
+        dataset (dict-like): A metadata set, referenced keys subscriptable.
+        pattern (str), optional: a general pattern for the desired filename.
+            Data keys between braces. Default to "{author}_{title}". 
+
+    Returns:
+        A string.
+    """
+    return pattern.format(**dataset)
