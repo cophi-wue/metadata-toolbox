@@ -23,15 +23,15 @@ logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s %(name)s: %(message)s')
 
 
-def fname2metadata(filename, pattern='{author}_{title}'):
-    """Extracts metadata from a filename.
+def fname2metadata(fname, pattern='{author}_{title}'):
+    """Extract metadata from a filename.
     
     With this function you can create a dictionary containing metadata.
     Only the filename's basepath without any extensions will be considered.
     Furthermore, you have to specifiy the pattern of the filename.
     
     Args:
-        filename (str): The name of a text file, with or without path as prefix
+        fname (str): The name of a text file, with or without path as prefix
             and extension as suffix, respectively.
         pattern (str), optional: The filename's pattern. Write describing tokens
             within braces, those will be you dictionary's keys. Defaults to
@@ -42,14 +42,14 @@ def fname2metadata(filename, pattern='{author}_{title}'):
         dictionary with describers as keys and metadata as values.
         
     Example:
-        >>> filename = 'corpus/Goethe_1816_Stella.txt'
+        >>> fname = 'corpus/Goethe_1816_Stella.txt'
         >>> pattern = '{author}_{year}_{title}'
-        >>> fname2metadata(filename=filename,
+        >>> fname2metadata(fname=fname,
         ...                pattern=pattern)
         <Result () {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}>
     """
-    log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(filename, pattern)) 
-    basename, _ = os.path.splitext(os.path.basename(filename))
+    log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(fname, pattern)) 
+    basename, _ = os.path.splitext(os.path.basename(fname))
     return parse(pattern, basename)
 
 def metadata2fname(dataset, pattern='{author}_{title}'):
