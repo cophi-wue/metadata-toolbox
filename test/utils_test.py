@@ -21,6 +21,9 @@ class UtilsTestCase(unittest.TestCase):
         self.assertTrue(metadata.__getitem__('author') == 'dickens' and
                         metadata.__getitem__('title') == 'expectations')
 
+        with self.assertRaises(Exception):
+            metadata = utils.fname2metadata(FNAME, '{author}/{title}')
+
     def test_metadata2fname(self):
         # defaults to {author}_{title}
         fname = utils.metadata2fname(DATASET)

@@ -40,6 +40,9 @@ def fname2metadata(fname, pattern='{author}_{title}'):
     Returns:
         A ``Result`` object (instanced by :module:`parse`), meaning an ordered
         dictionary with describers as keys and metadata as values.
+    
+    Todo:
+        * Find an appropriate exception instance.
         
     Example:
         >>> fname = 'corpus/Goethe_1816_Stella.txt'
@@ -50,7 +53,12 @@ def fname2metadata(fname, pattern='{author}_{title}'):
     """
     log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(fname, pattern)) 
     basename, _ = os.path.splitext(os.path.basename(fname))
-    return parse(pattern, basename)
+    metadata = parse(pattern, basename)
+    if metadata is not None:
+        return metadata
+    else:
+        raise Exception("The pattern '{0}' did not match the structure of '{1}'.".format(pattern, fname))
+
 
 def metadata2fname(dataset, pattern='{author}_{title}'):
     """Construct a filename from a metadata set and a pattern.
