@@ -38,7 +38,7 @@ class UtilsTestCase(unittest.TestCase):
             fname = utils.metadata2fname(DATASET, '{foo}_{baz}')
 
     def test_rearrange_filename(self):
-        # defaults to {author}_{title}
+        
         new_filename = utils.rearrange_filename(FNAME)
         self.assertTrue(new_filename == "refcor/English/expectations_dickens.txt")
 
