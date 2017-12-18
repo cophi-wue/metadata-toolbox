@@ -17,6 +17,7 @@ Contents
 import logging
 import os
 import re
+import csv
 from parse import *
 
 log = logging.getLogger(__name__)
@@ -92,3 +93,43 @@ def rearrange_filename(file_path):
     new_filepath = path + "/" + str(nameparts[1]) + "_" + str(nameparts[0]) + "." + file_ending
     return new_filepath
 
+def datamodel2csv(datamodel, fn):
+    '''Writes Datamodel to csv file.
+    
+    With this function, you can write metadata information of a list of documents to a csv file, where:
+    documents == list
+    Metadata field == dict.key
+    metadata information = dict[key]
+    
+    Args:
+        datamodel[dict]: list of dicts; each dict contains metadata of one document
+        fn(str): directory to save csv.
+    
+    Returns: -
+    
+    
+    To Do:
+        make list comprehension
+        write tests
+        test
+        
+    '''
+    
+    headerList = []
+    for header in datamodel:
+        for headeritem in header.keys():
+            if not headeritem in headerList:
+                headerList.append(headeritem)
+    with open (fn,'w', encoding = 'utf-8',) as f:
+        dictwriterObject = csv.DictWriter(f, entry.keys)
+        dictwriterObject.writeheader()        
+        for entry in datamodel:
+            dictwriterObject.writerow(entry)
+    
+    
+    
+    
+    
+    
+    
+    
