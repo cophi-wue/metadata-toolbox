@@ -84,7 +84,11 @@ def rearrange_filename(file_path):
 
     	   example:
 
-    		goehte_novelle.txt -> novelle_goehte.txt
+    		folder/goehte_novelle.txt -> folder/novelle_goehte.txt
+
+        >>> file_path = 'folder/goehte_novelle.txt'
+        >>> rearrange_filename(file_path=file_path)
+        'folder/novelle_goehte.txt'
     	"""
     path = re.sub("\/[^\/]+$", "", file_path)
     old_name = re.sub(".*\/|\..*", "", file_path)
