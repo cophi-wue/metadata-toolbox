@@ -117,7 +117,7 @@ def datamodel2csv(datamodel, fn):
     
     headerList = []
     for header in datamodel:
-        for headeritem in header.keys:
+        for headeritem in header.keys():
             if not headeritem in headerList:
                 headerList.append(headeritem)
     with open (fn,'w', encoding = 'utf-8',) as f:
