@@ -15,6 +15,7 @@ Contents
 
 import logging
 import os
+import re
 from parse import *
 
 log = logging.getLogger(__name__)
