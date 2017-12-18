@@ -11,6 +11,7 @@ Contents
 ********
     * :func:`fname2metadata()`: Extracts metadata from a filename.
     * :func:`metadata2fname()`: Generates filename from metadata.
+    * :func:`rearrange_filename()`: Changes file_format {author}_{title} to {title}_{format}
 """
 
 import logging
