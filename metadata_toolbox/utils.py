@@ -72,3 +72,21 @@ def metadata2fname(dataset, pattern='{author}_{title}'):
         A string.
     """
     return pattern.format(**dataset)
+
+def rearrange_filename(file_path):
+    """Changes filename format form {author}_{title} to {title}_{format}
+
+    	   args: file_path: path to a textfile
+    	   returns: newly formatet path to file (str)
+
+    	   example:
+
+    		goehte_novelle.txt -> novelle_goehte.txt
+    	"""
+    path = re.sub("\/[^\/]+$", "", file_path)
+    old_name = re.sub(".*\/|\..*", "", file_path)
+    file_ending = re.sub(".*\.", "", file_path)
+    nameparts = old_name.split("_")
+    new_filepath = path + "/" + str(nameparts[1]) + "_" + str(nameparts[0]) + "." + file_ending
+    return new_filepath
+
