@@ -12,12 +12,14 @@ Contents
     * :func:`fname2metadata()`: Extracts metadata from a filename.
     * :func:`metadata2fname()`: Generates filename from metadata.
     * :func:`rearrange_filename()`: Changes file_format {author}_{title} to {title}_{format}
+    * :func:`readMetadataFromCsv()`: reads metadata from CSV-file.
 """
 
 import logging
 import os
 import re
 import csv
+import warnings
 from parse import *
 
 log = logging.getLogger(__name__)
@@ -130,10 +132,41 @@ def datamodel2csv(datamodel, fn):
         for entry in datamodel:
             dictwriterObject.writerow(entry)
     
+def readMetadataFromCsv(datalocation, datadelimiter = ";", dataquotechar = '"', datafieldnames = None):
+    '''Reads CSV-file to datamodel.
+    
+    With this function, you can read metadata information from a csv file.
+    
+    Args:
+        datalocation (str): a string defining where to finde the CSV-file
+        datadelimiter (str): the charakter used to seperate values in the CSV-file
+        dataquotechar (str): the charakter used for quoting in the CSV-file
+        datafieldnames (list or None): if None, the values of thefirst line of the file are used as fildnames; alternativly you can define a list of fildnames
+    
+    Returns: a list of dicts; each dict representing the data of one document
     
     
+    To Do:
+        write tests
+        test
+        
+    '''
+
+    datalocation = str(datalocation)
+    datadelimiter = str(datadelimiter)
+    dataquotechar = str(dataquotechar)
     
-    
-    
-    
+    corpusdata = []
+    with open(datalocation, newline = '') as csvfile:
+        tablereader = csv.DictReader(csvfile, fieldnames = datafieldnames, delimiter = datadelimiter, quotechar = dataquotechar)
+        for row in tablereader:
+            corpusdata.append(row) 
+
+    ##Auf mögliche Eingabefehler hinweisen
+    if len(corpusdata) == 0:
+        warnings.warn("CSV-File is empty.")
+    elif len(corpusdata[0]) == 1:
+        warnings.warn("CSV-File has only 1 column. Pleas check delimiter.")
+
+    return corpusdata
     
