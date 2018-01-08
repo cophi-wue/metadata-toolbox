@@ -21,7 +21,8 @@ class UtilsTestCase(unittest.TestCase):
         self.assertTrue(metadata.__getitem__('author') == 'dickens' and
                         metadata.__getitem__('title') == 'expectations')
 
-        with self.assertRaises(Exception):
+        # ValueError when pattern does not match fname
+        with self.assertRaises(ValueError):
             metadata = utils.fname2metadata(FNAME, '{author}/{title}')
 
     def test_metadata2fname(self):
