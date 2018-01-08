@@ -18,8 +18,8 @@ class UtilsTestCase(unittest.TestCase):
         
     def test_fname2metadata(self):
         metadata = utils.fname2metadata(FNAME, '{author}_{title}')
-        self.assertTrue(metadata.__getitem__('author') == 'dickens' and
-                        metadata.__getitem__('title') == 'expectations')
+        self.assertTrue(metadata['author'] == 'dickens' and
+                        metadata['title'] == 'expectations')
 
         # ValueError when pattern does not match fname
         with self.assertRaises(ValueError):
