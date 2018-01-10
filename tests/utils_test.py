@@ -18,10 +18,11 @@ class UtilsTestCase(unittest.TestCase):
         
     def test_fname2metadata(self):
         metadata = utils.fname2metadata(FNAME, '{author}_{title}')
-        self.assertTrue(metadata.__getitem__('author') == 'dickens' and
-                        metadata.__getitem__('title') == 'expectations')
+        self.assertTrue(metadata['author'] == 'dickens' and
+                        metadata['title'] == 'expectations')
 
-        with self.assertRaises(Exception):
+        # ValueError when pattern does not match fname
+        with self.assertRaises(ValueError):
             metadata = utils.fname2metadata(FNAME, '{author}/{title}')
 
     def test_metadata2fname_default(self):
