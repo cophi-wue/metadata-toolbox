@@ -76,7 +76,7 @@ def metadata2fname(dataset, pattern='{author}_{title}'):
     Returns:
         A string.
     """
-    return pattern.format(**dataset)
+    return pattern.format_map(dataset)
 
 def rearrange_filename(file_path):
     """Changes filename format form {author}_{title} to {title}_{format}
