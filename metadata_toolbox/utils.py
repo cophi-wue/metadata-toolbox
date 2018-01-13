@@ -152,10 +152,6 @@ def readMetadataFromCsv(datalocation, datadelimiter = ";", dataquotechar = '"', 
         
     '''
 
-    datalocation = str(datalocation)
-    datadelimiter = str(datadelimiter)
-    dataquotechar = str(dataquotechar)
-    
     corpusdata = []
     with open(datalocation, newline = '') as csvfile:
         tablereader = csv.DictReader(csvfile, fieldnames = datafieldnames, delimiter = datadelimiter, quotechar = dataquotechar)
