@@ -132,16 +132,15 @@ def datamodel2csv(datamodel, fn):
         for entry in datamodel:
             dictwriterObject.writerow(entry)
     
-def readMetadataFromCsv(datalocation, datadelimiter = ";", dataquotechar = '"', datafieldnames = None):
+def readMetadataFromCsv(datalocation, datafieldnames = None, **kwargs):
     '''Reads CSV-file to datamodel.
     
     With this function, you can read metadata information from a csv file.
     
     Args:
         datalocation (str): a string defining where to finde the CSV-file
-        datadelimiter (str): the charakter used to seperate values in the CSV-file
-        dataquotechar (str): the charakter used for quoting in the CSV-file
-        datafieldnames (list or None): if None, the values of thefirst line of the file are used as fildnames; alternativly you can define a list of fildnames
+        datafieldnames (list or None): if None, the values of the first line of the file are used as fildnames; alternativly you can define a list of fildnames
+        further args get handet over to func csv.DictReader
     
     Returns: a list of dicts; each dict representing the data of one document
     
@@ -154,7 +153,7 @@ def readMetadataFromCsv(datalocation, datadelimiter = ";", dataquotechar = '"', 
 
     corpusdata = []
     with open(datalocation, newline = '') as csvfile:
-        tablereader = csv.DictReader(csvfile, fieldnames = datafieldnames, delimiter = datadelimiter, quotechar = dataquotechar)
+        tablereader = csv.DictReader(csvfile, fieldnames = datafieldnames, **kwargs)
         for row in tablereader:
             corpusdata.append(row) 
 
