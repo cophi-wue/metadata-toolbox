@@ -54,15 +54,15 @@ def fname2metadata(fname, pattern='{author}_{title}'):
         >>> pattern = '{author}_{year}_{title}'
         >>> fname2metadata(fname=fname,
         ...                pattern=pattern)
-        <Result () {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}>
+        {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}
     """
     log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(fname, pattern)) 
     basename, _ = os.path.splitext(os.path.basename(fname))
     metadata = parse(pattern, basename)
     if metadata is not None:
-        return metadata
+        return metadata.named
     else:
-        raise Exception("The pattern '{0}' did not match the structure of '{1}'.".format(pattern, fname))
+        raise ValueError("The pattern '{0}' did not match the structure of '{1}'.".format(pattern, fname))
 
 
 def metadata2fname(dataset, pattern='{author}_{title}'):
@@ -76,7 +76,7 @@ def metadata2fname(dataset, pattern='{author}_{title}'):
     Returns:
         A string.
     """
-    return pattern.format(**dataset)
+    return pattern.format_map(dataset)
 
 def rearrange_filename(file_path):
     """Changes filename format form {author}_{title} to {title}_{format}

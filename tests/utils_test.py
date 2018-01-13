@@ -18,21 +18,24 @@ class UtilsTestCase(unittest.TestCase):
         
     def test_fname2metadata(self):
         metadata = utils.fname2metadata(FNAME, '{author}_{title}')
-        self.assertTrue(metadata.__getitem__('author') == 'dickens' and
-                        metadata.__getitem__('title') == 'expectations')
+        self.assertTrue(metadata['author'] == 'dickens' and
+                        metadata['title'] == 'expectations')
 
-        with self.assertRaises(Exception):
+        # ValueError when pattern does not match fname
+        with self.assertRaises(ValueError):
             metadata = utils.fname2metadata(FNAME, '{author}/{title}')
 
-    def test_metadata2fname(self):
+    def test_metadata2fname_default(self):
         # defaults to {author}_{title}
         fname = utils.metadata2fname(DATASET)
         self.assertTrue(fname == 'dickens_expectations')
 
+    def test_metadata2fname_dict(self):
         # draws keys from supplied dict according to pattern
         fname = utils.metadata2fname(DATASET, '{foo}_{bar}')
         self.assertTrue(fname == 'A_B')
 
+    def test_metadata2fname_keyerror(self):
         # KeyError when pattern key not in metadata dict
         with self.assertRaises(KeyError):
             fname = utils.metadata2fname(DATASET, '{foo}_{baz}')
