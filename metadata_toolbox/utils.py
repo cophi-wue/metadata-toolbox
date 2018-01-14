@@ -13,6 +13,7 @@ Contents
     * :func:`metadata2fname()`: Generates filename from metadata.
     * :func:`rearrange_filename()`: Changes file_format {author}_{title} to {title}_{format}
     * :func:`readMetadataFromCsv()`: reads metadata from CSV-file.
+    * :func:`path_smart_rename()`: renames files to filenames that can include folders.
 """
 
 import logging
@@ -165,3 +166,20 @@ def readMetadataFromCsv(datalocation, datafieldnames = None, **kwargs):
 
     return corpusdata
     
+def path_smart_rename(old_fname, new_fname):
+    """Renames a file from old_fname to new_fname & deals with paths in names.
+    
+    Args:
+        old_fname: A string describing the path to the file to be renamed.
+        new_fname: A string describing the desired new filename and location.
+
+    Returns:
+        –
+
+    To Do:
+        * potentially clean up previously used empty folders after renaming?
+    """
+    new_dirs, _ = os.path.split(new_fname)
+    if new_dirs:
+        os.makedirs(new_dirs, exist_ok=True)
+    os.rename(old_fname, new_fname)

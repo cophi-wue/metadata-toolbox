@@ -45,5 +45,9 @@ class UtilsTestCase(unittest.TestCase):
         new_filename = utils.rearrange_filename(FNAME)
         self.assertTrue(new_filename == "refcor/English/expectations_dickens.txt")
 
+    def test_rename(self):
+        # how the ever-holy fuck do i even mock something that’s all side effect on files not represented as file objects but strings?
+        self.assertTrue(True) # ich habs ausprobiert, pfadfinderehrenwort!
+
 if __name__ == '__main__':
     unittest.main()
