@@ -3,6 +3,7 @@
 
 import unittest
 import sys
+from mock import patch
 sys.path.append('..')
 from metadata_toolbox import utils
 
@@ -10,7 +11,8 @@ FNAME = 'refcor/English/dickens_expectations.txt'
 DATASET = {'author': 'dickens',
            'title': 'expectations',
            'foo': 'A',
-           'bar': 'B'}
+           'bar': 'B',
+           'filename':'refcor/English/dickens_expectations.txt'}
 
 class UtilsTestCase(unittest.TestCase):
     def setUp(self):
@@ -48,6 +50,17 @@ class UtilsTestCase(unittest.TestCase):
     def test_rename(self):
         # how the ever-holy fuck do i even mock something that’s all side effect on files not represented as file objects but strings?
         self.assertTrue(True) # ich habs ausprobiert, pfadfinderehrenwort!
+
+    @patch('os.rename', return_value=None)
+    def test_renameCorpusFiles(self,os_fn_rename):
+        updated_metalist = utils.renameCorpusFiles([DATASET], ['foo', 'title', 'author'], "_-_")
+
+        # how to test lists of dicts??
+        self.assertDictEqual(updated_metalist[0], {'author': 'dickens',
+           'title': 'expectations',
+           'foo': 'A',
+           'bar': 'B',
+           'filename':'refcor/English/A_-_expectations_-_dickens.txt'})
 
 if __name__ == '__main__':
     unittest.main()
