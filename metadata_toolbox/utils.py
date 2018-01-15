@@ -179,10 +179,13 @@ def path_smart_rename(old_fname, new_fname):
     To Do:
         * potentially clean up previously used empty folders after renaming?
     """
+    old_dirs, _ = os.path.split(old_fname)
     new_dirs, _ = os.path.split(new_fname)
     if new_dirs:
         os.makedirs(new_dirs, exist_ok=True)
     os.rename(old_fname, new_fname)
+    if old_dirs:
+        os.removedirs(old_dirs)
 
 def renameCorpusFiles(metalist, fields, seperator):
     """Takes metadata fields and creates new filenames for corpus files
