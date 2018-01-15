@@ -183,3 +183,46 @@ def path_smart_rename(old_fname, new_fname):
     if new_dirs:
         os.makedirs(new_dirs, exist_ok=True)
     os.rename(old_fname, new_fname)
+
+def rename_corpus_files(metalist, fields, seperator):
+    """Takes metadata fields and creates new filenames for corpus files
+
+    Args:
+        metalist: List of dicts containing meatdatainforamtion and at least a field for filenames
+        fields: List of fields to be used for new filenames
+        seperator: String to separte different fields in new filenames
+
+    Returns:
+        updated list of dicts with containing new filenames
+
+    To Do:
+        * Warning for missing values in given fields?
+        * Option to set placeholder for these missing values
+    """
+    updated_metalist = list()
+    # iterate over meta_dicts
+    for meta_dict in metalist:
+
+        # get file extension
+        file_extension = os.path.splitext(meta_dict["filename"])[1]
+
+        # get path
+        path = os.path.dirname(meta_dict["filename"])
+
+        new_filename = ""
+        #  iterate over field_pattern
+        for field in fields:
+            new_filename += str(meta_dict[field]) + str(seperator)
+        # remove last seperator
+        new_filename = re.sub(re.escape(seperator) + "$", "", new_filename)
+        # join to path+extention
+        new_filename = os.path.join(path, new_filename) + file_extension
+
+        # rename file
+        os.rename(meta_dict["filename"], new_filename)
+
+        # update meta_dict
+        meta_dict["filename"] = new_filename
+        updated_metalist.append(meta_dict)
+
+    return updated_metalist
