@@ -3,6 +3,8 @@
 
 import unittest
 import sys
+import os
+import shutil
 from unittest.mock import patch
 sys.path.append('..')
 from metadata_toolbox import utils
@@ -47,9 +49,6 @@ class UtilsTestCase(unittest.TestCase):
         new_filename = utils.rearrange_filename(FNAME)
         self.assertTrue(new_filename == "refcor/English/expectations_dickens.txt")
 
-    def test_rename(self):
-        # how the ever-holy fuck do i even mock something that’s all side effect on files not represented as file objects but strings?
-        self.assertTrue(True) # ich habs ausprobiert, pfadfinderehrenwort!
 
     @patch('os.rename', return_value=None)
     def test_renameCorpusFiles(self,os_fn_rename):
@@ -61,6 +60,31 @@ class UtilsTestCase(unittest.TestCase):
            'foo': 'A',
            'bar': 'B',
            'filename':'refcor/English/A_-_expectations_-_dickens.txt'})
+
+class IOTestCase(unittest.TestCase):
+    def setUp(self):
+        os.mkdir('tmp')
+        os.chdir('tmp')
+
+    def tearDown(self):
+        os.chdir('..')
+        shutil.rmtree('tmp')
+
+    def test_basic_rename(self):
+        # rename from and to a plain file name
+        open('a', 'w').close()
+
+        utils.path_smart_rename('a', 'b')
+
+        self.assertTrue(os.path.isfile('b'))
+
+    def test_rename_to_path(self):
+        # rename from plain file name to file name in new subfolder
+        open('a', 'w').close()
+
+        utils.path_smart_rename('a', 'foo/b')
+
+        self.assertTrue(os.path.isfile('foo/b'))
 
 if __name__ == '__main__':
     unittest.main()
