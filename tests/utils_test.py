@@ -86,5 +86,15 @@ class IOTestCase(unittest.TestCase):
 
         self.assertTrue(os.path.isfile('foo/b'))
 
+    def test_rename_with_empty_path(self):
+        # causing a subfolder to be empty be renaming
+        os.mkdir('foo')
+        open('foo/a', 'w').close()
+
+        utils.path_smart_rename('foo/a', 'b')
+
+        self.assertTrue(os.path.isfile('b'))
+        self.assertFalse(os.path.isdir('foo'))
+
 if __name__ == '__main__':
     unittest.main()
