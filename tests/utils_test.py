@@ -3,7 +3,7 @@
 
 import unittest
 import sys
-from mock import patch
+from unittest.mock import patch
 sys.path.append('..')
 from metadata_toolbox import utils
 
