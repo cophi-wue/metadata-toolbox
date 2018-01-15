@@ -162,7 +162,7 @@ def readMetadataFromCsv(datalocation, datafieldnames = None, **kwargs):
     if len(corpusdata) == 0:
         warnings.warn("CSV-File is empty.")
     elif len(corpusdata[0]) == 1:
-        warnings.warn("CSV-File has only 1 column. Pleas check delimiter.")
+        warnings.warn("CSV-File has only 1 column. Please check delimiter.")
 
     return corpusdata
     
