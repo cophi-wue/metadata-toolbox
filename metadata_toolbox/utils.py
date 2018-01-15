@@ -184,7 +184,7 @@ def path_smart_rename(old_fname, new_fname):
         os.makedirs(new_dirs, exist_ok=True)
     os.rename(old_fname, new_fname)
 
-def rename_corpus_files(metalist, fields, seperator):
+def renameCorpusFiles(metalist, fields, seperator):
     """Takes metadata fields and creates new filenames for corpus files
 
     Args:
