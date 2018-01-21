@@ -96,5 +96,16 @@ class IOTestCase(unittest.TestCase):
         self.assertTrue(os.path.isfile('b'))
         self.assertFalse(os.path.isdir('foo'))
 
+    def test_rename_with_nonempty_path(self):
+        # not removing a non-empty subfolder after renaming (and no OSError from os.removedirs())
+        os.mkdir('foo')
+        open('foo/a', 'w').close()
+        open('foo/b', 'w').close()
+
+        utils.path_smart_rename('foo/a', 'b')
+
+        self.assertTrue(os.path.isfile('b'))
+        self.assertTrue(os.path.isdir('foo'))
+
 if __name__ == '__main__':
     unittest.main()
