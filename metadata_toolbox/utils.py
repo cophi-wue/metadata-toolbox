@@ -185,7 +185,11 @@ def path_smart_rename(old_fname, new_fname):
         os.makedirs(new_dirs, exist_ok=True)
     os.rename(old_fname, new_fname)
     if old_dirs:
-        os.removedirs(old_dirs)
+        try:
+            os.removedirs(old_dirs)
+            log.info('Recursively removed empty directories from {0}.'.format(old_dirs))
+        except OSError:
+            log.debug('Failed removing {0} recursively because it’s not empty.'.format(old_dirs))
 
 def renameCorpusFiles(metalist, fields, seperator):
     """Takes metadata fields and creates new filenames for corpus files
