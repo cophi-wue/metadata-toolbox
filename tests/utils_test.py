@@ -146,15 +146,12 @@ class UseCases(unittest.TestCase):
             data[fname] = '\n'.join(document)
         
         # Step 6: Saving modified data
-        m = mock_open()
         for fname, document in data.items():
-            with patch('builtins.open', m, create=True) as mock_file:
+            with patch('builtins.open', mock_open(), create=True) as mock_file:
                 with open(fname, 'w') as f:
                     f.write(document)
-        m.assert_called_once_with('expectations', 'w')
-        handle = m()
-        handle.write.assert_called_once_with('This\nis\na\ndocument') # new document structure (newlines and no punctuations)
-
+                mock_file.assert_called_with(fname, 'w')
+                mock_file().write.assert_called_with('This\nis\na\ndocument') # new document structure (newlines and no punctuations)
 
 if __name__ == '__main__':
     unittest.main()
