@@ -211,7 +211,10 @@ def renameCorpusFiles(metalist, fields, seperator):
     for meta_dict in metalist:
 
         # get file extension
-        file_extension = os.path.splitext(meta_dict["filename"])[1]
+        try:
+            file_extension = os.path.splitext(meta_dict["filename"])[1]
+        except KeyError:
+            log.debug('Missing field \'filename\' in metadata.'.format(meta_dict))
 
         # get path
         path = os.path.dirname(meta_dict["filename"])
@@ -219,7 +222,11 @@ def renameCorpusFiles(metalist, fields, seperator):
         new_filename = ""
         #  iterate over field_pattern
         for field in fields:
-            new_filename += str(meta_dict[field]) + str(seperator)
+            try:
+                new_filename += str(meta_dict[field]) + str(seperator)
+            except KeyError:
+                log.debug('Field is not defined in metadata:'.format(field))
+            
         # remove last seperator
         new_filename = re.sub(re.escape(seperator) + "$", "", new_filename)
         # join to path+extention
