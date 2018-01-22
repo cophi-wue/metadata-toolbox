@@ -51,11 +51,12 @@ def fname2metadata(fname, pattern='{author}_{title}'):
         * Find an appropriate exception instance.
         
     Example:
-        >>> fname = 'corpus/Goethe_1816_Stella.txt'
-        >>> pattern = '{author}_{year}_{title}'
-        >>> fname2metadata(fname=fname,
-        ...                pattern=pattern)
-        {'author': 'Goethe', 'year': '1816', 'title': 'Stella'}
+        >>> fname = 'corpus/Goethe_Stella.txt'
+        >>> pattern = '{author}_{title}'
+        >>> metadata = fname2metadata(fname=fname,
+        ...                           pattern=pattern)
+        >>> 'Goethe' in metadata.values and 'Stella' in metadata.values
+        True
     """
     log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(fname, pattern)) 
     basename, _ = os.path.splitext(os.path.basename(fname))
