@@ -233,7 +233,7 @@ def renameCorpusFiles(metalist, fields, seperator):
         new_filename = os.path.join(path, new_filename) + file_extension
 
         # rename file
-        os.rename(meta_dict["filename"], new_filename)
+        path_smart_rename(meta_dict["filename"], new_filename)
 
         # update meta_dict
         meta_dict["filename"] = new_filename
