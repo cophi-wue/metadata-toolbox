@@ -176,9 +176,6 @@ def path_smart_rename(old_fname, new_fname):
 
     Returns:
         –
-
-    To Do:
-        * potentially clean up previously used empty folders after renaming?
     """
     old_dirs, _ = os.path.split(old_fname)
     new_dirs, _ = os.path.split(new_fname)
