@@ -22,6 +22,8 @@ import re
 import csv
 import warnings
 from parse import *
+import pandas as pd
+from lxml import etree
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -238,3 +240,43 @@ def renameCorpusFiles(metalist, fields, seperator):
         updated_metalist.append(meta_dict)
 
     return updated_metalist
+
+
+def read_meta_from_tei(filepaths, element_dict, namespace):
+    """Takes metadata fields and creates new filenames for corpus files
+
+        Args:
+            filepaths: List of filepaths
+            element_dict: List of Elements containing metadata
+            namespace: namespace of xml document as dict
+
+        Returns:
+            updated list of dicts with containing new filenames
+
+        To Do:
+            * Warning for missing values in given fields?
+            * Option to set placeholder for these missing values
+        """
+    element_dict.update({"filepath": ""})
+    meta_frame = pd.DataFrame(columns=(list(element_dict.keys())))
+    for filepath in filepaths:
+        with open(filepath, "rb") as teidoc:
+            content = teidoc.read()
+
+        tei = etree.fromstring(content)
+        meta_dict = {"filepath": filepath}
+
+        for element in element_dict.keys():
+
+            if element == "filepath":
+                continue
+            meta_value = tei.xpath("//tei:TEI/tei:teiHeader//tei:" + str(element) + "/text()", namespaces=namespace)
+            if len(meta_value) < 1:
+                meta_value = None
+                log.warning('Missing value for field \'' + element + '\' in TEI document: ' + str(filepath))
+
+            meta_dict.update({element: meta_value})
+        meta_frame_single = pd.DataFrame(meta_dict)
+        meta_frame = meta_frame.append(meta_frame_single)
+
+    return meta_frame
