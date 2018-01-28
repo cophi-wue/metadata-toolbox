@@ -192,6 +192,15 @@ def path_smart_rename(old_fname, new_fname):
             log.debug('Failed removing {0} recursively because it’s not empty.'.format(old_dirs))
 
 def read_sidecar(fname):
+    """Read metadata from sidecar file.
+
+    Args:
+        fname (str): A filename.
+
+    Returns:
+        A metadata dict. It carries an extra key `_from` with value 'sidecar'.
+        Raises IOError if there is no sidecar file.
+    """
     sc_fname = os.path.splitext(fname)[0]+'.json'
     with open(sc_fname) as f:
         dataset = json.load(f)
