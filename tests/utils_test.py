@@ -116,7 +116,7 @@ class IOTestCase(unittest.TestCase):
         with open('foo.json', 'w') as f:
             json.dump(DATASET, f)
 
-        assert utils.read_sidecar(fname) == DATASET
+        assert utils.read_sidecar(fname) == {**DATASET, **{'_from': 'sidecar'}}
 
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
