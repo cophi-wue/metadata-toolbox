@@ -209,8 +209,7 @@ def read_sidecar(fname):
 
 def write_sidecar(dataset):
     sc_fname = os.path.splitext(dataset['filename'])[0]+'.json'
-    prepared_dataset = dataset.copy()
-    del prepared_dataset['_from']
+    prepared_dataset = {k:v for k, v in dataset.items() if k != '_from'}
 
     with open(sc_fname, 'w') as f:
         json.dump(prepared_dataset, f)
