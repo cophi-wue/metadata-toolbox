@@ -132,7 +132,7 @@ class IOTestCase(unittest.TestCase):
         self.assertTrue(os.path.isfile('foo.json'))
         with open('foo.json') as f:
             jsonfile = json.load(f)
-        self.assertTrue(jsonfile == metadata)
+        self.assertTrue(jsonfile == {**DATASET, **{'filename': 'foo.xml'}})
 
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
