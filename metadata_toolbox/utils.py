@@ -208,6 +208,14 @@ def read_sidecar(fname):
     return dataset
 
 def write_sidecar(dataset):
+    """Write metadata to a sidecar file.
+
+    Args:
+        dataset (dict): A metadata set.
+
+    Returns:
+        --
+    """
     sc_fname = os.path.splitext(dataset['filename'])[0]+'.json'
     prepared_dataset = {k:v for k, v in dataset.items() if k != '_from'}
 
