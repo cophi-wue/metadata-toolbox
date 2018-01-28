@@ -118,6 +118,11 @@ class IOTestCase(unittest.TestCase):
 
         self.assertTrue(utils.read_sidecar(fname) == {**DATASET, **{'_from': 'sidecar'}})
 
+    def test_load_nonexisting_sidecar(self):
+        # have fname, no sidecar -> raises IOError
+        fname = 'foo.xml'
+        self.assertRaises(utils.read_sidecar(fname), IOError)
+
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
         with open('test.csv', 'w') as file:
