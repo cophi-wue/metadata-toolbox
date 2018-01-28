@@ -195,6 +195,7 @@ def read_sidecar(fname):
     sc_fname = os.path.splitext(fname)[0]+'.json'
     with open(sc_fname) as f:
         dataset = json.load(f)
+    dataset['_from'] = 'sidecar'
     return dataset
 
 def renameCorpusFiles(metalist, fields, seperator):
