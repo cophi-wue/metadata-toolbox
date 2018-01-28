@@ -16,6 +16,7 @@ Contents
     * :func:`path_smart_rename()`: renames files to filenames that can include folders.
 """
 
+import json
 import logging
 import os
 import re
@@ -189,6 +190,12 @@ def path_smart_rename(old_fname, new_fname):
             log.info('Recursively removed empty directories from {0}.'.format(old_dirs))
         except OSError:
             log.debug('Failed removing {0} recursively because it’s not empty.'.format(old_dirs))
+
+def read_sidecar(fname):
+    sc_fname = os.path.splitext(fname)[0]+'.json'
+    with open(sc_fname) as f:
+        dataset = json.load(f)
+    return dataset
 
 def renameCorpusFiles(metalist, fields, seperator):
     """Takes metadata fields and creates new filenames for corpus files
