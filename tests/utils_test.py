@@ -121,19 +121,8 @@ class IOTestCase(unittest.TestCase):
     def test_load_nonexisting_sidecar(self):
         # have fname, no sidecar -> raises IOError
         fname = 'foo.xml'
-        self.assertRaises(utils.read_sidecar(fname), IOError)
-
-
-    def test_save_sidecar(self):
-        # have metadata, write sidecar file
-        metadata = {**DATASET, **{'_from': 'sidecar'}}.update({'filename':'foo.xml'})
-        utils.write_sidecar(metadata)
-
-        self.assertTrue(os.path.isfile('foo.json'))
-        with open('foo.json') as f:
-            jsonfile = f.read()
-        self.assertTrue(jsonfile == metadata)
-
+        with self.assertRaises(FileNotFoundError):
+            metadata = utils.read_sidecar(fname)
 
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
