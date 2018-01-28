@@ -207,6 +207,11 @@ def read_sidecar(fname):
     dataset['_from'] = 'sidecar'
     return dataset
 
+def write_sidecar(dataset):
+    sc_fname = os.path.splitext(dataset['filename'])[0]+'.json'
+    with open(sc_fname, 'w') as f:
+        json.dump(dataset, f)
+
 def renameCorpusFiles(metalist, fields, seperator):
     """Takes metadata fields and creates new filenames for corpus files
 
