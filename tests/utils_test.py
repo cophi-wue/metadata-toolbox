@@ -6,6 +6,7 @@ import sys
 import os
 import glob
 import shutil
+import json
 from unittest.mock import patch, Mock, mock_open
 sys.path.append('..')
 from metadata_toolbox import utils
@@ -108,6 +109,14 @@ class IOTestCase(unittest.TestCase):
         self.assertTrue(os.path.isfile('b'))
         self.assertTrue(os.path.isdir('foo'))
 
+
+    def test_load_sidecar(self):
+        # have fname, load sidecar
+        fname = 'foo.xml'
+        with open('foo.json', 'w') as f:
+            json.dump(DATASET, f)
+
+        assert utils.read_sidecar(fname) == DATASET
 
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
