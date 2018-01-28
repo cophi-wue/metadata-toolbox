@@ -123,6 +123,18 @@ class IOTestCase(unittest.TestCase):
         fname = 'foo.xml'
         self.assertRaises(utils.read_sidecar(fname), IOError)
 
+
+    def test_save_sidecar(self):
+        # have metadata, write sidecar file
+        metadata = {**DATASET, **{'_from': 'sidecar'}}.update({'filename':'foo.xml'})
+        utils.write_sidecar(metadata)
+
+        self.assertTrue(os.path.isfile('foo.json'))
+        with open('foo.json') as f:
+            jsonfile = f.read()
+        self.assertTrue(jsonfile == metadata)
+
+
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
         with open('test.csv', 'w') as file:
