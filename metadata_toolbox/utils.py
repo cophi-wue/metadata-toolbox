@@ -20,7 +20,6 @@ import logging
 import os
 import re
 import csv
-import warnings
 from parse import *
 import pandas as pd
 from lxml import etree
@@ -163,9 +162,9 @@ def readMetadataFromCsv(datalocation, datafieldnames = None, **kwargs):
 
     ##Auf mögliche Eingabefehler hinweisen
     if len(corpusdata) == 0:
-        warnings.warn("CSV-File is empty.")
+        log.warning("CSV-File is empty.")
     elif len(corpusdata[0]) == 1:
-        warnings.warn("CSV-File has only 1 column. Please check delimiter.")
+        log.warning("CSV-File has only 1 column. Please check delimiter.")
 
     return corpusdata
     
