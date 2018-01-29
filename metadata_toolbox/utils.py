@@ -26,9 +26,6 @@ import pandas as pd
 from lxml import etree
 
 log = logging.getLogger(__name__)
-log.addHandler(logging.NullHandler())
-logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s %(name)s: %(message)s')
 
 
 def fname2metadata(fname, pattern='{author}_{title}'):
@@ -83,26 +80,6 @@ def metadata2fname(dataset, pattern='{author}_{title}'):
     """
     return pattern.format_map(dataset)
 
-def rearrange_filename(file_path):
-    """Changes filename format form {author}_{title} to {title}_{format}
-
-    	   args: file_path: path to a textfile
-    	   returns: newly formatet path to file (str)
-
-    	   example:
-
-    		folder/goehte_novelle.txt -> folder/novelle_goehte.txt
-
-        >>> file_path = 'folder/goehte_novelle.txt'
-        >>> rearrange_filename(file_path=file_path)
-        'folder/novelle_goehte.txt'
-    	"""
-    path = re.sub("\/[^\/]+$", "", file_path)
-    old_name = re.sub(".*\/|\..*", "", file_path)
-    file_ending = re.sub(".*\.", "", file_path)
-    nameparts = old_name.split("_")
-    new_filepath = path + "/" + str(nameparts[1]) + "_" + str(nameparts[0]) + "." + file_ending
-    return new_filepath
 
 def datamodel2csv(datamodel, fn):
     '''Writes Datamodel to csv file.
