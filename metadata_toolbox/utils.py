@@ -55,16 +55,17 @@ def fname2metadata(fname, pattern='{author}_{title}'):
     Example:
         >>> fname = 'corpus/Goethe_Stella.txt'
         >>> pattern = '{author}_{title}'
-        >>> metadata = fname2metadata(fname=fname,
-        ...                           pattern=pattern)
-        >>> 'Goethe' in metadata.values and 'Stella' in metadata.values
-        True
+        >>> fname2metadata(fname=fname,
+        ...                pattern=pattern) # doctest: +NORMALIZE_WHITESPACE
+                                  author   title
+        corpus/Goethe_Stella.txt  Goethe  Stella
+
     """
     log.debug("Extracting metadata from filename '{0}' with pattern '{1}' ...".format(fname, pattern)) 
     basename, _ = os.path.splitext(os.path.basename(fname))
     metadata = parse(pattern, basename)
     if metadata is not None:
-        return metadata.named
+        return pd.DataFrame(metadata.named, index=[fname])
     else:
         raise ValueError("The pattern '{0}' did not match the structure of '{1}'.".format(pattern, fname))
 
