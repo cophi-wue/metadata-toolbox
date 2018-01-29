@@ -5,6 +5,7 @@ import unittest
 import sys
 import os
 import glob
+import csv
 import shutil
 import json
 from unittest.mock import patch, Mock, mock_open
@@ -142,9 +143,9 @@ class IOTestCase(unittest.TestCase):
             csvwriter.writerow(['Titel1', 'Autor1', 'Jahr1', 'ISBN1'])
             csvwriter.writerow(['Titel2', 'Autor2', 'Jahr2', 'ISBN2'])
     
-    def test_readMetadataFromCsv():
+    def test_readMetadataFromCsv(file):
         IOTestCase.createTestCSV()
-        assert readMetadataFromCsv('test.csv')== [{'Titel':'Titel1', 'Autor':'Autor1', 'Erscheinungsjahr':'Jahr1', 'ISBN':'ISBN1'},{'Titel':'Titel2', 'Autor':'Autor2', 'Erscheinungsjahr':'Jahr2', 'ISBN':'ISBN2'}]
+        assert utils.readMetadataFromCsv('test.csv')== [{'Titel':'Titel1', 'Autor':'Autor1', 'Erscheinungsjahr':'Jahr1', 'ISBN':'ISBN1'},{'Titel':'Titel2', 'Autor':'Autor2', 'Erscheinungsjahr':'Jahr2', 'ISBN':'ISBN2'}]
     
 
 class UseCases(unittest.TestCase):
