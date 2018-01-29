@@ -81,38 +81,21 @@ def metadata2fname(dataset, pattern='{author}_{title}'):
     return pattern.format_map(dataset)
 
 
-def datamodel2csv(datamodel, fn):
-    '''Writes Datamodel to csv file.
+def metadata2csv(dataset, fname, **kwargs):
+    """Writes metadata to CSV-file.
     
-    With this function, you can write metadata information of a list of documents to a csv file, where:
-    documents == list
-    Metadata field == dict.key
-    metadata information = dict[key]
+    With this function, you can write metadata 
     
     Args:
-        datamodel[dict]: list of dicts; each dict contains metadata of one document
-        fn(str): directory to save csv.
+        datamodel (pd.DataFrame): A pandas DataFrame containing metadata, where
+            each row stands for one document.
+        fname (str): Filename for CSV-file.
     
-    Returns: -
+    Returns:
+        None
+    """
+    dataset.to_csv(fname, **kwargs)
     
-    
-    To Do:
-        make list comprehension
-        write tests
-        test
-        
-    '''
-    
-    headerList = []
-    for header in datamodel:
-        for headeritem in header.keys():
-            if not headeritem in headerList:
-                headerList.append(headeritem)
-    with open (fn,'w', encoding = 'utf-8',) as f:
-        dictwriterObject = csv.DictWriter(f, entry.keys)
-        dictwriterObject.writeheader()        
-        for entry in datamodel:
-            dictwriterObject.writerow(entry)
     
 def readMetadataFromCsv(datalocation, datafieldnames = None, **kwargs):
     '''Reads CSV-file to datamodel.
