@@ -24,7 +24,9 @@ setup(
     # keywords
     packages=find_packages(exclude=['docs', 'test']),
     install_requires=[
-        'parse>=1.8.2'
+        'parse>=1.8.2',
+        'pandas>=0.19.2',
+        'lxml>=3.6.4'
     ],
     command_options={
         'build_sphinx': {
