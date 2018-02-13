@@ -8,6 +8,7 @@ import glob
 import csv
 import shutil
 import json
+from pytest_catchlog import caplog
 from unittest.mock import patch, Mock, mock_open
 sys.path.append('..')
 from metadata_toolbox import utils
@@ -135,6 +136,7 @@ class IOTestCase(unittest.TestCase):
             jsonfile = json.load(f)
         self.assertTrue(jsonfile == {**DATASET, **{'filename': 'foo.xml'}})
 
+    @staticmethod
     def createTestCSV():
         # creates some CSV-data on which the functions can be tested
         with open('test.csv', 'w') as file:
@@ -145,8 +147,13 @@ class IOTestCase(unittest.TestCase):
     
     def test_readMetadataFromCsv(file):
         IOTestCase.createTestCSV()
-        assert utils.readMetadataFromCsv('test.csv')== [{'Titel':'Titel1', 'Autor':'Autor1', 'Erscheinungsjahr':'Jahr1', 'ISBN':'ISBN1'},{'Titel':'Titel2', 'Autor':'Autor2', 'Erscheinungsjahr':'Jahr2', 'ISBN':'ISBN2'}]
-    
+        assert utils.readMetadataFromCsv('test.csv') == [{'Titel':'Titel1', 'Autor':'Autor1', 'Erscheinungsjahr':'Jahr1', 'ISBN':'ISBN1'},{'Titel':'Titel2', 'Autor':'Autor2', 'Erscheinungsjahr':'Jahr2', 'ISBN':'ISBN2'}]
+
+    def test_readFromCsv_wrong_delimiter(file, caplog):
+        IOTestCase.createTestCSV()
+        with patch('logging.warning') as mock_logger:
+            utils.readMetadataFromCsv("test.csv", delimiter='#')
+        assert "CSV-File has only 1 column. Please check delimiter." in caplog.text()
 
 class UseCases(unittest.TestCase):
     def setUp(self):
