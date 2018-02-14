@@ -149,11 +149,6 @@ class IOTestCase(unittest.TestCase):
         IOTestCase.createTestCSV()
         assert utils.readMetadataFromCsv('test.csv') == [{'Titel':'Titel1', 'Autor':'Autor1', 'Erscheinungsjahr':'Jahr1', 'ISBN':'ISBN1'},{'Titel':'Titel2', 'Autor':'Autor2', 'Erscheinungsjahr':'Jahr2', 'ISBN':'ISBN2'}]
 
-    def test_readFromCsv_wrong_delimiter(self, caplog):
-        IOTestCase.createTestCSV()
-        with patch('logging.warning') as mock_logger:
-            utils.readMetadataFromCsv("test.csv", delimiter='#')
-        assert "CSV-File has only 1 column. Please check delimiter." in caplog.text()
 
 class UseCases(unittest.TestCase):
     def setUp(self):
