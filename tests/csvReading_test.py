@@ -16,4 +16,6 @@ def test_readFromCsv_wrong_delimiter(caplog):
     os.remove("test.csv")
     assert "CSV-File has only 1 column. Please check delimiter." in caplog.text
 
-test_readFromCsv_wrong_delimiter()
+def test_readFromCsv_no_file(caplog):
+    with pytest.raises(FileNotFoundError):
+        utils.readMetadataFromCsv("test.csv")
