@@ -8,7 +8,7 @@ import glob
 import csv
 import shutil
 import json
-from pytest_catchlog import caplog
+import pytest
 from unittest.mock import patch, Mock, mock_open
 sys.path.append('..')
 from metadata_toolbox import utils
@@ -145,11 +145,11 @@ class IOTestCase(unittest.TestCase):
             csvwriter.writerow(['Titel1', 'Autor1', 'Jahr1', 'ISBN1'])
             csvwriter.writerow(['Titel2', 'Autor2', 'Jahr2', 'ISBN2'])
     
-    def test_readMetadataFromCsv(file):
+    def test_readMetadataFromCsv(self):
         IOTestCase.createTestCSV()
         assert utils.readMetadataFromCsv('test.csv') == [{'Titel':'Titel1', 'Autor':'Autor1', 'Erscheinungsjahr':'Jahr1', 'ISBN':'ISBN1'},{'Titel':'Titel2', 'Autor':'Autor2', 'Erscheinungsjahr':'Jahr2', 'ISBN':'ISBN2'}]
 
-    def test_readFromCsv_wrong_delimiter(file, caplog):
+    def test_readFromCsv_wrong_delimiter(self, caplog):
         IOTestCase.createTestCSV()
         with patch('logging.warning') as mock_logger:
             utils.readMetadataFromCsv("test.csv", delimiter='#')
