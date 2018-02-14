@@ -108,11 +108,6 @@ def readMetadataFromCsv(datalocation, datafieldnames = None, **kwargs):
         further args get handet over to func csv.DictReader
     
     Returns: a list of dicts; each dict representing the data of one document
-    
-    
-    To Do:
-        write tests
-        test
         
     '''
 
